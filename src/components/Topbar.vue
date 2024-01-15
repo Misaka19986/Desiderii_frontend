@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import '../assets/css/Topbar.css'
 
 </script>
 
 <template>
-  <q-toolbar>
-    <q-toolbar-title class="font-mono">
-      Title
-    </q-toolbar-title>
+
+  <q-toolbar class="bg-slate-300">
+    <q-avatar>
+    </q-avatar>
+    <q-toolbar-title class="text-blue-600">Desiderii</q-toolbar-title>
   </q-toolbar>
 
   <q-tabs align="left">
@@ -15,6 +15,7 @@ import '../assets/css/Topbar.css'
     <q-route-tab to="/page2" label="Page Two" />
     <q-route-tab to="/page3" label="Page Three" />
   </q-tabs>
+
 </template>
 
 <style scoped>
