@@ -14,17 +14,18 @@ import '../assets/css/Topbar.css'
 
   <q-toolbar class="flex flex-row flex-nowrap">
     <!--Logo-->
-    <q-avatar>
+    <q-avatar size="60px">
+      <img src="/src/assets/desiderii_logo.png">
     </q-avatar>
 
     <!--Title-->
-    <q-toolbar-title class="title font-serif">Desiderii</q-toolbar-title>
+    <q-toolbar-title class="font-serif text-h4">Desiderii</q-toolbar-title>
     
     <!--Switch tabs-->
-    <q-tabs class="h-full">
+    <q-tabs class="tabs">
       <q-route-tab to="/" label="主页"/>
-      <q-route-tab to="/page2" label="聊天室" />
-      <q-route-tab to="/page3" label="游戏" />
+      <q-route-tab to="/page2" label="聊天室"/>
+      <q-route-tab to="/page3" label="游戏"/>
     </q-tabs>
 
     <q-space/>

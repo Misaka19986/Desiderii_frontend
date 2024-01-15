@@ -1,3 +1,7 @@
 .topbar{
     backdrop-filter: blur(10px);
 }
+.tabs{
+    height: 100%;
+    font-size: large;
+}

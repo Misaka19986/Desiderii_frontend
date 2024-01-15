@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { Quasar } from 'quasar'
+import { createPinia } from 'pinia'
 import router from './router/index.ts'
 
 import './assets/css/tailwind.css'
@@ -9,4 +10,5 @@ import 'quasar/src/css/index.sass'
 
 import App from './App.vue'
 
-createApp(App).use(Quasar, {plugins: {}, }).use(router).mount('#app')
+const pinia = createPinia()
+createApp(App).use(Quasar, {plugins: {}, }).use(router).use(pinia).mount('#app')
