@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import MainPage from '../views/MainPage.vue'
+import MainPageLayout from '../layouts/desktop/MainPageLayout.vue'
 
 const routes = [
     {
         path: '/',
-        component: MainPage
+        component: MainPageLayout
     }
 ]
 

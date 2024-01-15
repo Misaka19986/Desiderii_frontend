@@ -1,14 +1,12 @@
 import { createApp } from 'vue'
 import { Quasar } from 'quasar'
-import { createPinia } from 'pinia'
+import pinia from './store/store.ts'
 import router from './router/index.ts'
 
-import './assets/css/tailwind.css'
+import './css/tailwind.css'
 import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'
 
-
 import App from './App.vue'
 
-const pinia = createPinia()
 createApp(App).use(Quasar, {plugins: {}, }).use(router).use(pinia).mount('#app')
