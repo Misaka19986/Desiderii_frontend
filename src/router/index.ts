@@ -5,7 +5,7 @@ const routes = [
     {
         path: '/',
         component: MainPage
-    },
+    }
 ]
 
 const router = createRouter({
