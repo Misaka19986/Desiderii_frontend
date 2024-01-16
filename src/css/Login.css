@@ -1,0 +1,18 @@
+.background{
+    background:no-repeat center/100% url(../assets/background.png);
+}
+.login_card{
+    /* Set whole card size */
+    top: 26%;
+    left: 40%;
+    right: 40%;
+}
+.q-tab__label{
+    /* Bigger font size for Login/Register options */
+    font-size: large !important;
+    font-weight: bold !important;
+}
+.q-btn{
+    /* Bigger button size */
+    width: 100% !important;
+}

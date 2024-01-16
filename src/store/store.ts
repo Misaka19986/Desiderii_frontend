@@ -1,5 +1,14 @@
-import { createPinia } from "pinia";
+import { defineStore } from 'pinia'
 
-const pinia = createPinia()
+export const store = defineStore('userInfo', {
+    state: () => {
+        return {
+            user: null as userState | null,
+        }
+    }
+})
 
-export default pinia
+interface userState {
+    uid: number
+    is_logined: boolean
+}
