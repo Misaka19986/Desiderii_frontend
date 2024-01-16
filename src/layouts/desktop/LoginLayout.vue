@@ -5,17 +5,17 @@
 */
 import { ref } from 'vue'
 import '../../css/Login.css'
+import { postUserLogin, postUserRegister } from '../../utils/API.ts'
 
 // Select 'login' or 'register'
 // and change the form
 const selectedTab = ref('login')
 
 // Record user input
-const form = ref({
-    id: '', // It may be a name or a phone number or an email
-    name: '',
+export const form = ref({
+    alias: '',
     phone: '',
-    mail: '',
+    email: '',
     password: '',
     cofirmPassword: ''
 })
@@ -45,7 +45,7 @@ const form = ref({
                 <!--Login-->
                 <q-form v-if="selectedTab === 'login'" class="q-gutter-md">
                     <q-input
-                        v-model="form.id"
+                        v-model="form.alias"
                         outlined
                         label="用户名/手机号/邮箱"
                         lazy-rules
@@ -69,7 +69,7 @@ const form = ref({
                 <!--Register-->
                 <q-form v-if="selectedTab === 'register'" class="q-gutter-md">
                     <q-input
-                        v-model="form.name"
+                        v-model="form.alias"
                         outlined
                         label="用户名"
                         hint="长度小于25"
@@ -93,7 +93,7 @@ const form = ref({
                         ]"
                     />
                     <q-input
-                        v-model="form.mail"
+                        v-model="form.email"
                         outlined
                         label="邮箱"
                         hint="xxx@xxx.xx"
@@ -135,7 +135,7 @@ const form = ref({
 
             <!--Login button-->
             <q-card-section>
-                <q-btn color="secondary" label="GO"/>
+                <q-btn color="secondary" label="GO" @click="selectedTab === 'login' ? postUserLogin : postUserRegister"/>
             </q-card-section>
 
         </q-card>
