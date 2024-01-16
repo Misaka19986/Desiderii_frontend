@@ -1,12 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar class="topbar">
-        <q-avatar class="q-mr-sm" size="md" square>
-          <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg" />
+    <q-header elevated class="topbar">
+      <q-toolbar class="">
+        <q-avatar size="xl">
+          <img src="src/assets/desiderii_logo.png" alt="Desiderii" />
         </q-avatar>
-        <q-toolbar-title class="font-serif">Desiderii</q-toolbar-title>
-        <q-tabs v-model="tab">
+        <q-toolbar-title class=" font-serif text-h4">Desiderii</q-toolbar-title>
+        <q-tabs v-model="tab" class="h-full">
           <q-tab name="home" to="/" exact>
             <q-icon name="home" />
             <q-tab-label>主页</q-tab-label>
@@ -29,6 +29,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+    <q-scroll-area></q-scroll-area>
   </q-layout>
 </template>
 
@@ -39,7 +40,6 @@ const tab: Ref<string> = ref('home')
 
 <style scoped>
 .topbar {
-  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 </style>
