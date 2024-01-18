@@ -6,19 +6,50 @@
 import { ref } from 'vue'
 import '../../css/Login.css'
 import { postUserLogin, postUserRegister } from '../../utils/API.ts'
+import router from '../../router';
 
 // Select 'login' or 'register'
 // and change the form
 const selectedTab = ref('login')
 
 // Record user input
-export const form = ref({
+const form = ref({
     alias: '',
     phone: '',
     email: '',
     password: '',
-    cofirmPassword: ''
 })
+
+// ConfirmPassword must perfectly match password
+const confirmPassword = ref('')
+
+// Alert
+const alert = ref(false)
+const alertMessage = ref('')
+
+const login = () => {
+    postUserLogin(form.value).then((res) => {
+        if(!res){
+            alert.value = true
+            alertMessage.value = '用户名或密码错误！'
+        }else{
+            router.push('/MainPage')
+        }
+    })
+}
+
+const register = () => {
+    postUserRegister(form.value).then((res) => {
+        if(!res){
+            alert.value = true
+            alertMessage.value = '注册失败！'
+        }else{
+            alert.value = true
+            alertMessage.value = '注册成功！'
+            selectedTab.value = 'login'
+        }
+    })
+}
 
 </script>
 
@@ -72,12 +103,12 @@ export const form = ref({
                         v-model="form.alias"
                         outlined
                         label="用户名"
-                        hint="长度小于25"
+                        hint="长度小于15，大于5"
                         lazy-rules
                         clearable
                         :rules="[
                             val => !!val || '请输入用户名',
-                            val => val.length < 15 || '用户名不能超过15个字符'
+                            val => val.length >= 5 || val.length < 15 || '用户名不能超过15个字符，且至少有5个字符'
                         ]"
                     />
                     <q-input
@@ -118,7 +149,7 @@ export const form = ref({
                         ]"
                     />
                     <q-input
-                        v-model="form.cofirmPassword"
+                        v-model="confirmPassword"
                         outlined
                         label="确认密码"
                         hint="必须与密码一致"
@@ -127,7 +158,7 @@ export const form = ref({
                         type="password"
                         :rules="[
                             val => !!val || '请输入确认密码',
-                            () => form.password === form.cofirmPassword || '两次密码不一致'
+                            () => form.password === confirmPassword || '两次密码不一致'
                         ]"
                     />
                 </q-form>
@@ -135,14 +166,27 @@ export const form = ref({
 
             <!--Login button-->
             <q-card-section>
-                <q-btn color="secondary" label="GO" @click="selectedTab === 'login' ? postUserLogin : postUserRegister"/>
+                <q-btn color="secondary" label="GO" @click="(selectedTab === 'login') ? login() : register()"/>
             </q-card-section>
-
+            
         </q-card>
+        
+        <!--alert-->
+        <q-dialog v-model="alert">
+            <q-card>
+                <q-card-section>
+                    <div class="text-h6">{{ alertMessage }}</div>
+                </q-card-section>
+            </q-card>
+        </q-dialog>
 
     </q-page>
 
 </template>
 
 <style scoped>
+.q-btn{
+    /* Bigger button size */
+    width: 100% !important;
+}
 </style>

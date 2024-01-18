@@ -4,7 +4,7 @@ import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 
 export default defineConfig({
   server: {
-    port: 9000
+    port: 9000,
   },
   plugins: [
     vue({
@@ -15,4 +15,5 @@ export default defineConfig({
       sassVariables: 'src/quasar-variables.sass'
     })
   ],
+  
 })

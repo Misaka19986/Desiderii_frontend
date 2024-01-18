@@ -4,7 +4,7 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
 const API = axios.create({
-  baseURL: process.env.VUE_APP_API_BASE,
+  baseURL: "http://localhost:8090",
   headers: {
     Accept:"application/json",
     "Content-Type":"application/json",
@@ -29,8 +29,16 @@ function responseErrorHandler(response: AxiosResponse){
 // Handle request
 API.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // TODO: set token
-    config.headers["Authorization"]
+    const accessToken = localStorage.getItem('accessToken')
+    const refreshToken = localStorage.getItem('refreshToken')
+
+    // Tokens not null
+    if(accessToken && refreshToken){
+      config.headers.accessToken = accessToken
+      config.headers.refreshToken = refreshToken
+    }
+
+    // Login or register
     // TODO: params with request 通过请求传参
     return config
   },
