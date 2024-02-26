@@ -45,3 +45,4 @@ export async function postUserRegister(form: {}): Promise<boolean> {
     
     return res
 }
+

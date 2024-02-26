@@ -74,7 +74,9 @@ const register = () => {
             <!--User input-->
             <q-card-section>
                 <!--Login-->
-                <q-form v-if="selectedTab === 'login'" class="q-gutter-md">
+                <q-form v-if="selectedTab === 'login'" 
+                    class="q-gutter-md" 
+                    @submit="login">
                     <q-input
                         v-model="form.alias"
                         outlined
@@ -96,9 +98,16 @@ const register = () => {
                             val => !!val || '请输入密码'
                         ]"
                     />
+                    <div>
+                        <q-btn color="secondary" 
+                        label="GO"
+                        type="submit"/>
+                    </div>
                 </q-form>
                 <!--Register-->
-                <q-form v-if="selectedTab === 'register'" class="q-gutter-md">
+                <q-form v-if="selectedTab === 'register'" 
+                    class="q-gutter-md" 
+                    @submit="register">
                     <q-input
                         v-model="form.alias"
                         outlined
@@ -161,14 +170,13 @@ const register = () => {
                             () => form.password === confirmPassword || '两次密码不一致'
                         ]"
                     />
+                    <div>
+                        <q-btn color="secondary" 
+                        label="GO"
+                        type="submit"/>
+                    </div>
                 </q-form>
             </q-card-section>
-
-            <!--Login button-->
-            <q-card-section>
-                <q-btn color="secondary" label="GO" @click="(selectedTab === 'login') ? login() : register()"/>
-            </q-card-section>
-            
         </q-card>
         
         <!--alert-->
