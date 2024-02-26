@@ -1,7 +1,14 @@
 import API from './axios.ts'
 
+class Form {
+    alias: string = ''
+    phone: string = ''
+    email: string = ''
+    password: string = ''
+}
+
 // Sent login request to server
-export async function postUserLogin(form: {}): Promise<boolean> {
+export async function postUserLogin(form: Form): Promise<boolean> {
     console.log("Logining...")
     console.log(form)
 
@@ -13,8 +20,17 @@ export async function postUserLogin(form: {}): Promise<boolean> {
             if(101 == data.code){
                 console.log('登录失败！')
             }else{
+                console.log('登录成功！')
+
+                // Set user info
+                localStorage.setItem('alias', form.alias)
+                localStorage.setItem('isLogin', 'true')
                 localStorage.setItem('accessToken', data.data['accessToken'])
                 localStorage.setItem('refreshToken', data.data['refreshToken'])
+
+                console.log('alias: ' + localStorage.getItem('alias'))
+                console.log('accessToken: ' + localStorage.getItem('accessToken'))
+                console.log('refreshToken: ' + localStorage.getItem('refreshToken'))
 
                 res = true
             }
@@ -25,7 +41,7 @@ export async function postUserLogin(form: {}): Promise<boolean> {
 }
 
 // Sent register request to server
-export async function postUserRegister(form: {}): Promise<boolean> {
+export async function postUserRegister(form: Form): Promise<boolean> {
     console.log("Registering...")
     console.log(form)
 
@@ -46,3 +62,13 @@ export async function postUserRegister(form: {}): Promise<boolean> {
     return res
 }
 
+// export async function getUserInfoByName(alias: string): Promise<Form> {
+//     await API.post('/user/getUserInfo', alias)
+// }
+
+export async function postGetAllPostPreviews(): Promise<boolean> {
+    console.log("Request posts' previews...")
+
+    let res = false
+    return res
+}

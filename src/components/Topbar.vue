@@ -4,8 +4,19 @@
 * it's wrapped by a <div> to fix its 
 * position and set its bg color
 */
+import { ref, onMounted } from 'vue';
 import '../css/Topbar.css'
 import router from '../router/index.ts'
+
+// Check user has logged in or not
+const isLogin = ref(localStorage.getItem('isLogin'))
+
+// User name
+const alias = ref(localStorage.getItem('alias'))
+
+onMounted(() => {
+  
+})
 
 </script>
 
@@ -24,9 +35,9 @@ import router from '../router/index.ts'
         
         <!--Switch tabs-->
         <q-tabs class="text-h5">
-            <q-route-tab to="/MainPage" label="主页"/>
-            <q-route-tab to="/Chat" label="聊天室"/>
-            <q-route-tab to="/Game" label="游戏"/>
+            <q-route-tab to="/mainpage" label="主页"/>
+            <q-route-tab to="/chat" label="聊天室"/>
+            <q-route-tab to="/game" label="游戏"/>
         </q-tabs>
 
         <q-space/>
@@ -36,8 +47,17 @@ import router from '../router/index.ts'
         </q-avatar>
 
         <!--Login/User space button-->
-        <q-btn no-shadow outline @click="router.push('/')">
+        <q-btn v-if="isLogin != 'true'" no-shadow outline @click="router.push('/')">
         login
+        </q-btn>
+
+        <!--If logged-in, show avatar-->
+        <q-btn round v-if="isLogin === 'true'">
+          <q-avatar  
+          color="warning" 
+          size="42px"
+          @click="router.push('/userspace/' +  alias)">
+          </q-avatar>
         </q-btn>
 
     </q-toolbar>
