@@ -3,9 +3,13 @@
 </script>
 
 <template>
-    <q-card>
-        
-    </q-card>
+    
+    <q-page>
+        <q-card>
+            
+        </q-card>
+    </q-page>
+
 </template>
 
 <style scoped>

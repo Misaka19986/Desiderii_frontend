@@ -6,6 +6,7 @@ import router from './router/index.ts'
 import './css/tailwind.css'
 import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'
+import '@icon-park/vue-next/styles/index.css'
 
 import App from './App.vue'
 

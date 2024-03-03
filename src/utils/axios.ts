@@ -30,12 +30,12 @@ function responseErrorHandler(response: AxiosResponse){
 API.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const accessToken = localStorage.getItem('accessToken')
-    const refreshToken = localStorage.getItem('refreshToken')
+    // const refreshToken = localStorage.getItem('refreshToken')
 
     // Tokens not null
-    if(accessToken && refreshToken){
-      config.headers.accessToken = accessToken
-      config.headers.refreshToken = refreshToken
+    if(accessToken){
+      config.headers.Authorization = 'Bearer ' + accessToken
+      // config.headers.refreshToken = refreshToken
     }
 
     // Login or register

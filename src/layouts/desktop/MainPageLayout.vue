@@ -13,8 +13,8 @@ import Topbar from '../../components/Topbar.vue'
 <template>
     
     <q-page>
-        <Topbar/>
         <MainPage/>
+        <Topbar/>
     </q-page>
 
 </template>

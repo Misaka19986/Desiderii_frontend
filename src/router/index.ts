@@ -23,7 +23,7 @@ const routes = [
         component: GameLayout
     },
     {
-        path: '/userspace/:alias',
+        path: '/userspace/:name',
         component: UserSpaceLayout
     },
 ]

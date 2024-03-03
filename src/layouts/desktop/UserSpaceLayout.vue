@@ -4,6 +4,8 @@ import UserSpace from '../../views/UserSpace.vue'
 
 </script>
 <template>
-    <Topbar/>
-    <UserSpace/>
+    <q-page>
+        <UserSpace/>
+        <Topbar/>
+    </q-page>
 </template>

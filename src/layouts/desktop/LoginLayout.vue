@@ -14,7 +14,7 @@ const selectedTab = ref('login')
 
 // Record user input
 const form = ref({
-    alias: '',
+    name: '',
     phone: '',
     email: '',
     password: '',
@@ -40,10 +40,17 @@ const login = () => {
 
 const register = () => {
     postUserRegister(form.value).then((res) => {
-        if(!res){
+        if(201 == res){
             alert.value = true
             alertMessage.value = '注册失败！'
-        }else{
+        }else if(202 == res){
+            alert.value = true
+            alertMessage.value = '用户名已被使用！'
+        }else if(203 == res){
+            alert.value = true
+            alertMessage.value = '邮箱已被使用！'
+        }
+        else if(200 == res){
             alert.value = true
             alertMessage.value = '注册成功！'
             selectedTab.value = 'login'
@@ -78,7 +85,7 @@ const register = () => {
                     class="q-gutter-md" 
                     @submit="login">
                     <q-input
-                        v-model="form.alias"
+                        v-model="form.name"
                         outlined
                         label="用户名/手机号/邮箱"
                         lazy-rules
@@ -109,7 +116,7 @@ const register = () => {
                     class="q-gutter-md" 
                     @submit="register">
                     <q-input
-                        v-model="form.alias"
+                        v-model="form.name"
                         outlined
                         label="用户名"
                         hint="长度小于15，大于5"
@@ -123,25 +130,23 @@ const register = () => {
                     <q-input
                         v-model="form.phone"
                         outlined
-                        label="手机号"
+                        label="手机号(选填)"
                         hint="必须为11位"
                         lazy-rules
                         clearable
                         :rules="[
-                            val => !!val || '请输入手机号',
-                            val => (val.length === 11 &&  /^\d+$/.test(val)) || '手机号不正确'
+                            val => !val || (val.length === 11 && /^\d+$/.test(val)) || '手机号不正确'
                         ]"
                     />
                     <q-input
                         v-model="form.email"
                         outlined
-                        label="邮箱"
+                        label="邮箱(选填)"
                         hint="xxx@xxx.xx"
                         lazy-rules
                         clearable
                         :rules="[
-                            val => !!val || '请输入邮箱',
-                            val => /^([a-zA-Z0-9]+[-_\.]?)+@[a-zA-Z0-9]+\.[a-z]+$/.test(val) || '请输入正确的邮箱'
+                            val => !val || /^([a-zA-Z0-9]+[-_\.]?)+@[a-zA-Z0-9]+\.[a-z]+$/.test(val) || '请输入正确的邮箱'
                         ]"
                     />
                     <q-input

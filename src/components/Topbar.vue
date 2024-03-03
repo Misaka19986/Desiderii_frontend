@@ -4,7 +4,7 @@
 * it's wrapped by a <div> to fix its 
 * position and set its bg color
 */
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import '../css/Topbar.css'
 import router from '../router/index.ts'
 
@@ -12,11 +12,7 @@ import router from '../router/index.ts'
 const isLogin = ref(localStorage.getItem('isLogin'))
 
 // User name
-const alias = ref(localStorage.getItem('alias'))
-
-onMounted(() => {
-  
-})
+const name = ref(localStorage.getItem('name'))
 
 </script>
 
@@ -56,7 +52,7 @@ onMounted(() => {
           <q-avatar  
           color="warning" 
           size="42px"
-          @click="router.push('/userspace/' +  alias)">
+          @click="router.push('/userspace/' +  name)">
           </q-avatar>
         </q-btn>
 
