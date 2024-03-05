@@ -55,6 +55,31 @@ export async function postObtainTokens(name: string | null, password: string | n
     return res
 }
 
+export async function postRefreshTokens(): Promise<boolean>{
+    console.log('Refresh tokens...')
+
+    let res = false
+
+    let token = localStorage.getItem('refreshToken')
+
+    await API.post('/token/refresh', {'refresh': token}).then(
+        (response) => {
+            let data = response.data
+
+            if(data['access']){
+                localStorage.setItem('accessToken', data['access'])
+
+                res = true
+            }
+        }
+    ).catch(
+        (error) => {
+            res = false
+    })
+
+    return res
+}
+
 // Sent login request to server
 export async function postUserLogin(form: Form): Promise<boolean> {
     console.log('Logining...')
@@ -122,7 +147,7 @@ export async function postUserRegister(form: Form): Promise<number> {
             }else if(203 == data.code){
                 console.log('邮箱重复！')
 
-                res = 203
+                res = 203   
             }
         }
     )
@@ -131,16 +156,15 @@ export async function postUserRegister(form: Form): Promise<number> {
 }
 
 // Sent logout request to server
-export async function postUserLogout(form: Form): Promise<boolean> {
+export async function postUserLogout(): Promise<boolean> {
     console.log('Logout...')
-    console.log(form)
 
     let res = false
 
-    await API.post('/user/logout', form).then(
+    await API.post('/user/logout').then(
         (response) => {
             let data = response.data
-
+            
             if(100 == data.code){
                 console.log('登出成功！')
 
@@ -155,7 +179,7 @@ export async function postUserLogout(form: Form): Promise<boolean> {
 }
 
 export async function getUserInfoByName(name: string | null): Promise<UserInfo | null> {
-    await API.post('/user/getUserInfo', name).then(
+    await API.post('/user/getUserInfoByName', name).then(
         (response) => {
             let data = response.data
             console.log(data)

@@ -2,15 +2,27 @@
 * Setting axios
 */
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { postRefreshTokens } from './API.ts'
+import router from '../router/index.ts'
+import axiosRetry from 'axios-retry'
 
 const API = axios.create({
   baseURL: "http://localhost:8090",
   headers: {
     Accept:"application/json",
-    "Content-Type":"application/json",
   },
   timeout: 30000,
+  withCredentials: true,
+
+  // Retry
+  
 })
+
+// axiosRetry(API, {
+//   retries: 3, // 设置重试次数
+//   retryDelay: () => 500, // 设置重试延迟时间
+//   shouldResetTimeout: true, // 重置请求超时时间
+// })
 
 function responseSuccessHandler(response: AxiosResponse){
   switch(response.status){
@@ -19,11 +31,41 @@ function responseSuccessHandler(response: AxiosResponse){
   }
 }
 
-function responseErrorHandler(response: AxiosResponse){
-  switch(response.status){
+function responseErrorHandler(error: AxiosError){
+  console.log('Response error')
+
+  let data = error.response?.data
+
+  switch(error.response?.status){
+    case 401:
+
+      if(data['messages']['0']['token_type'] == 'access'){
+        console.log('Unauthorized')
+
+        const refreshToken = localStorage.getItem('refreshToken')
+        
+        if(refreshToken){
+          postRefreshTokens().then(
+            (res) => {
+              if(!res){
+                localStorage.clear()
+                router.push('/')
+              }else{
+                console.log('Refresh success')
+
+                API.request(error.config)
+              }
+            }
+          )
+        }
+      }
+
+      break
     default:
       return
   }
+
+  return
 }
 
 // Handle request
@@ -44,7 +86,7 @@ API.interceptors.request.use(
   },
   (error: AxiosError) => {
     console.log('request error:\n' + error)
-    // Use (.catch(error)) to process error
+
     return Promise.reject(error)
   }
 )
@@ -53,11 +95,13 @@ API.interceptors.request.use(
 API.interceptors.response.use(
   (response: AxiosResponse) => {
     responseSuccessHandler(response)
-    // Use (.then) to process response
+
     return Promise.resolve(response)
   },
-  (error: AxiosResponse) => {
+  (error: AxiosError) => {
     responseErrorHandler(error)
+    
+    // return Promise.reject(error)
   }
 )
 

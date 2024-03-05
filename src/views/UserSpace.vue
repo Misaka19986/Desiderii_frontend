@@ -28,7 +28,7 @@ const logout = () => {
         form.name = localStorage.getItem('name')
     }
 
-    postUserLogout(form).then(
+    postUserLogout().then(
         (res) => {
             if(!res){
                 alert.value = true
