@@ -83,7 +83,8 @@ const register = () => {
                 <!--Login-->
                 <q-form v-if="selectedTab === 'login'" 
                     class="q-gutter-md" 
-                    @submit="login">
+                    @submit="login"
+                >
                     <q-input
                         v-model="form.name"
                         outlined
@@ -107,14 +108,16 @@ const register = () => {
                     />
                     <div>
                         <q-btn color="secondary" 
-                        label="GO"
-                        type="submit"/>
+                            label="GO"
+                            type="submit"
+                        />
                     </div>
                 </q-form>
                 <!--Register-->
                 <q-form v-if="selectedTab === 'register'" 
                     class="q-gutter-md" 
-                    @submit="register">
+                    @submit="register"
+                >
                     <q-input
                         v-model="form.name"
                         outlined
@@ -177,8 +180,9 @@ const register = () => {
                     />
                     <div>
                         <q-btn color="secondary" 
-                        label="GO"
-                        type="submit"/>
+                            label="GO"
+                            type="submit"
+                        />
                     </div>
                 </q-form>
             </q-card-section>

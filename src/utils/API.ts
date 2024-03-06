@@ -32,6 +32,18 @@ export class UserInfo {
     }
 }
 
+/*
+*   Tokens
+*   
+*   @Functions:
+*       Obtain access/refresh token
+*       Refresh access token by refresh token
+* 
+*   @Methods:
+*       postObtainTokens(name, password)
+*       postRefreshTokens()
+*/
+
 export async function postObtainTokens(name: string | null, password: string | null): Promise<boolean>{
     console.log('Obtain tokens...')
 
@@ -80,7 +92,26 @@ export async function postRefreshTokens(): Promise<boolean>{
     return res
 }
 
-// Sent login request to server
+/*
+*   Users manage
+*
+*   @Functions:
+*       Login,register user
+*       User CURD
+*   
+*   @Methods:
+*       postUserLogin(form)
+*       postUserRegister(form)
+*       postUserLogout()
+*       
+*       getUserInfoBySession()
+*       updateUserInfoBySession(userInfo)
+*       
+*   @Params:
+*       class Form
+*       
+*/
+
 export async function postUserLogin(form: Form): Promise<boolean> {
     console.log('Logining...')
     console.log(form)
@@ -125,7 +156,6 @@ export async function postUserLogin(form: Form): Promise<boolean> {
     return res
 }
 
-// Sent register request to server
 export async function postUserRegister(form: Form): Promise<number> {
     console.log('Registering...')
     console.log(form)
@@ -135,27 +165,14 @@ export async function postUserRegister(form: Form): Promise<number> {
     await API.post('/user/register', form).then(
         (response) => {
             let data = response.data
-            console.log(data)
-            if(200 == data.code){
-                console.log('注册成功！')
-
-                res = 200
-            }else if(202 == data.code){
-                console.log('用户名重复！')
-
-                res = 202
-            }else if(203 == data.code){
-                console.log('邮箱重复！')
-
-                res = 203   
-            }
+            
+            res = parseInt(data.code, 10)
         }
     )
     
     return res
 }
 
-// Sent logout request to server
 export async function postUserLogout(): Promise<boolean> {
     console.log('Logout...')
 
@@ -178,14 +195,16 @@ export async function postUserLogout(): Promise<boolean> {
     return res
 }
 
-export async function getUserInfoByName(name: string | null): Promise<UserInfo | null> {
-    await API.post('/user/getUserInfoByName', name).then(
+export async function getUserInfoBySession(): Promise<UserInfo | null> {
+    let userInfo = null
+
+    await API.post('/user/getUserInfoBySession').then(
         (response) => {
             let data = response.data
             console.log(data)
             if(100 == data.code){
                 let user = data.data
-                const userInfo = new UserInfo(
+                userInfo = new UserInfo(
                     user.name,
                     user.phone,
                     user.email,
@@ -201,7 +220,23 @@ export async function getUserInfoByName(name: string | null): Promise<UserInfo |
         }
     )
 
-    return null
+    return userInfo
+}
+
+export async function updateUserInfoBySession(userInfo: UserInfo): Promise<number> {
+    console.log('Update user info...')
+
+    let res = 101
+
+    await API.post('/user/updateUserInfoBySession', userInfo).then(
+        (response) => {
+            let data = response.data
+
+            res = parseInt(data.code, 10)
+        }
+    )
+
+    return res
 }
 
 export async function getAllPostPreviews(): Promise<boolean> {

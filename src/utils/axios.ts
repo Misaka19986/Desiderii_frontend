@@ -39,6 +39,7 @@ function responseErrorHandler(error: AxiosError){
   switch(error.response?.status){
     case 401:
 
+      // If access token expired
       if(data['messages']['0']['token_type'] == 'access'){
         console.log('Unauthorized')
 
