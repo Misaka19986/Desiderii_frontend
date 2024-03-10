@@ -41,7 +41,7 @@ function responseErrorHandler(error: AxiosError){
 
       // If access token expired
       if(data['messages']['0']['token_type'] == 'access'){
-        console.log('Unauthorized')
+        console.log('Token expired')
 
         const refreshToken = localStorage.getItem('refreshToken')
         
@@ -59,6 +59,19 @@ function responseErrorHandler(error: AxiosError){
             }
           )
         }
+      }
+
+      break
+
+    case 403:
+      console.log('Forbidden')
+
+      const accessToken = localStorage.getItem('accessToken')
+
+      if(accessToken){
+        API.request(error.config)
+      }else{
+        
       }
 
       break

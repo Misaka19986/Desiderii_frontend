@@ -13,6 +13,7 @@
     "@quasar/extras": "^1.16.9",
     "axios": "^1.6.5",
     "axios-retry": "^4.0.0",
+    "md-editor-v3": "^4.12.1",
     "pinia": "^2.1.7",
     "quasar": "^2.14.2",
     "sass-loader": "^12.0.0",

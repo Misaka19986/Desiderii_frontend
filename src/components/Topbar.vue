@@ -8,6 +8,7 @@ import { ref } from 'vue';
 import '../css/Topbar.css'
 import router from '../router/index.ts'
 
+
 // Check user has logged in or not
 const isLogin = ref(localStorage.getItem('isLogin'))
 
@@ -23,7 +24,7 @@ const name = ref(localStorage.getItem('name'))
     <q-toolbar class="flex flex-row flex-nowrap">
         <!--Logo-->
         <q-avatar size="45px">
-        <img src="/src/assets/desiderii_logo.png">
+          <img src="/src/assets/desiderii_logo.png"/>
         </q-avatar>
 
         <!--Title-->
@@ -38,22 +39,14 @@ const name = ref(localStorage.getItem('name'))
 
         <q-space/>
 
-        <!--User avatar-->
-        <q-avatar>
-        </q-avatar>
-
         <!--Login/User space button-->
         <q-btn v-if="isLogin != 'true'" no-shadow outline @click="router.push('/')">
         login
         </q-btn>
 
         <!--If logged-in, show avatar-->
-        <q-btn round v-if="isLogin === 'true'">
-          <q-avatar  
-          color="warning" 
-          size="42px"
-          @click="router.push('/userspace/' +  name)">
-          </q-avatar>
+        <q-btn v-if="isLogin === 'true'" no-shadow outline @click="router.push('/userspace/' +  name)">
+        个人空间
         </q-btn>
 
     </q-toolbar>

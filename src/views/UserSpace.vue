@@ -22,6 +22,9 @@ const access = ref('')
 const userInfo = ref(new UserInfo('', '', '', '', '', ''))
 const userInfoEdited = ref(new UserInfo('', '', '', '', '', ''))
 
+// Avatar url
+const avatar = ref(null)
+
 // Logout button
 const onLogout = () => {
     let form = new Form('', '', '', '')
@@ -61,6 +64,15 @@ const onUpload = () => {
     access.value = 'Bearer ' + localStorage.getItem('accessToken')
 }
 
+const onUploadFailed = () => {
+    alert.value = true
+    alertMessage.value = '上传失败！'
+}
+
+const onUploadFinished = () => {
+    router.go(0)
+}
+
 const submitEdition = () => {
     localStorage.setItem('name', userInfoEdited.value.name)
 
@@ -95,6 +107,7 @@ onMounted(() => {
                 alertMessage.value = '读取用户信息失败！'
             }else{
                 userInfo.value = res
+                avatar.value = localStorage.getItem('avatar')
             }
         }
     )
@@ -109,7 +122,7 @@ onMounted(() => {
             <q-card-section class="flex justify-between bg-transparent">
                 <!--User avatar-->
                 <q-avatar size="144px" color="red">
-
+                    <img :src="avatar">
                 </q-avatar>
                 <!--User name-->
                 <div class="flex flex-col items-end">
@@ -221,12 +234,15 @@ onMounted(() => {
                 label="上传头像 (限制10MB)"
                 method="POST"
                 max-file-size="10485760"
+                max-files="1"
                 accept=".jpg, image/*"
                 :with-credentials="true"
                 :headers="[
                     {name: 'Accept', value: 'application/json'},
                     {name: 'Authorization', value: access}
                 ]"
+                @failed="onUploadFailed"
+                @finish="onUploadFinished"
             />
         </q-dialog>
 

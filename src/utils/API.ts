@@ -32,6 +32,27 @@ export class UserInfo {
     }
 }
 
+export class Article {
+    title: string | null = ''
+    content: string | null = ''
+    create_time: string | null = ''
+    update_time: string | null = ''
+    author: string | null = ''
+    topic: string | null = ''
+
+    constructor(title: string | null = null, content: string | null = null,
+        create_time: string | null = null, update_time: string | null = null,
+        author: string | null = null, topic: string | null = null) {
+        this.title = title;
+        this.content = content;
+        this.create_time = create_time;
+        this.update_time = update_time;
+        this.author = author;
+        this.topic = topic;
+    }
+
+}
+
 /*
 *   Tokens
 *   
@@ -106,6 +127,7 @@ export async function postRefreshTokens(): Promise<boolean>{
 *       
 *       getUserInfoBySession()
 *       updateUserInfoBySession(userInfo)
+*       getUserAvatarBySession()
 *       
 *   @Params:
 *       class Form
@@ -146,7 +168,6 @@ export async function postUserLogin(form: Form): Promise<boolean> {
                 res = true
 
                 postObtainTokens(name, form.password)
-                
             }else{
                 console.log('登录失败！')
             }
@@ -212,6 +233,11 @@ export async function getUserInfoBySession(): Promise<UserInfo | null> {
                     user.create_time,
                     user.signature
                 )
+                
+                if(user.avatar){
+                    let avatar = 'http://localhost:8090' + user.avatar
+                    localStorage.setItem('avatar', avatar)
+                }
 
                 return userInfo
             }else{
@@ -239,9 +265,54 @@ export async function updateUserInfoBySession(userInfo: UserInfo): Promise<numbe
     return res
 }
 
-export async function getAllPostPreviews(): Promise<boolean> {
-    console.log('Request posts previews...')
+/*
+*   Article manage
+*
+*   @Functions:
+*       Get preview of article
+*       Article CURD
+*   
+*   @Methods:
+*       getAllArticlePreviews()
+*       getArticleByName()
+*       
+*   @Params:
+*       class Article
+*       
+*/
 
-    let res = false
+export async function getAllArticlePreviews(): Promise<any[]> {
+    console.log('Request articles previews...')
+
+    let res: any[] = []
+
+    await API.post('article/getAllArticlePreviews').then(
+        (response) => {
+            let data = response.data
+
+            if(100 == data.code){
+                console.log(data)
+
+                for(let i = 0; i < data.count; i++){
+                    res.push(data.data[i])
+                }
+            }
+        }
+    )
+
+    return res
+}
+
+export async function getArticleByName(title: string | null): Promise<Article> {
+    console.log('Get article..')
+
+    let res = new Article()
+
+    await API.post('/article/' + title).then(
+        (response) => {
+            let data = response.data
+        }
+    )
+
     return res
 }

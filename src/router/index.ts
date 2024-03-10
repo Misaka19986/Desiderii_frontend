@@ -4,6 +4,7 @@ import MainPageLayout from '../layouts/desktop/MainPageLayout.vue'
 import ChatLayout from '../layouts/desktop/ChatLayout.vue'
 import GameLayout from '../layouts/desktop/GameLayout.vue'
 import UserSpaceLayout from '../layouts/desktop/UserSpaceLayout.vue'
+import ArticleLayout from '../layouts/desktop/ArticleLayout.vue'
 
 const routes = [
     {
@@ -26,6 +27,10 @@ const routes = [
         path: '/userspace/:name',
         component: UserSpaceLayout
     },
+    {
+        path: '/article/:title',
+        component: ArticleLayout
+    }
 ]
 
 const router = createRouter({
