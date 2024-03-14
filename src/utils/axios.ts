@@ -4,7 +4,6 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { postRefreshTokens } from './API.ts'
 import router from '../router/index.ts'
-import axiosRetry from 'axios-retry'
 
 const API = axios.create({
   baseURL: "http://localhost:8090",

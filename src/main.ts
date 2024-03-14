@@ -3,7 +3,7 @@ import { Quasar } from 'quasar'
 import { createPinia } from "pinia";
 import router from './router/index.ts'
 
-import './css/tailwind.css'
+import './style.css'
 import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'
 import '@icon-park/vue-next/styles/index.css'

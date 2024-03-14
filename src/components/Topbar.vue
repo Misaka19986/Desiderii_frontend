@@ -24,7 +24,7 @@ const name = ref(localStorage.getItem('name'))
     <q-toolbar class="flex flex-row flex-nowrap">
         <!--Logo-->
         <q-avatar size="45px">
-          <img src="/src/assets/desiderii_logo.png"/>
+          <img src="../assets/desiderii_logo.png"/>
         </q-avatar>
 
         <!--Title-->

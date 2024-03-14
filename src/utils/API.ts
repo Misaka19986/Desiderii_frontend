@@ -274,7 +274,7 @@ export async function updateUserInfoBySession(userInfo: UserInfo): Promise<numbe
 *   
 *   @Methods:
 *       getAllArticlePreviews()
-*       getArticleByName()
+*       getArticleByTitle()
 *       
 *   @Params:
 *       class Article
@@ -303,14 +303,49 @@ export async function getAllArticlePreviews(): Promise<any[]> {
     return res
 }
 
-export async function getArticleByName(title: string | null): Promise<Article> {
+export async function getArticleByTitle(title: string | null): Promise<Article> {
     console.log('Get article..')
 
     let res = new Article()
 
-    await API.post('/article/' + title).then(
+    await API.post('/article/preview' + title).then(
         (response) => {
             let data = response.data
+
+            console.log(data)
+
+            if(100 == data.code){
+                res.title = data.data.title
+                res.content = data.data.content
+                res.author = data.data.author
+                res.create_time = data.data.create_time
+                res.update_time = data.data.update_time
+                res.topic = data.data.topic
+            }else{
+                res = null
+            }
+        }
+    )
+
+    return res
+}
+
+export async function getUserArticlePreviews(): Promise<any[]> {
+    console.log('Request articles previews...')
+
+    let res: any[] = []
+
+    await API.post('article/getUserArticlePreviews').then(
+        (response) => {
+            let data = response.data
+
+            if(100 == data.code){
+                console.log(data)
+
+                for(let i = 0; i < data.count; i++){
+                    res.push(data.data[i])
+                }
+            }
         }
     )
 

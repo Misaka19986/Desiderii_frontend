@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { Logout as logout_icon, Edit as edit_icon, AddPicture} from '@icon-park/vue-next'
 import router from '../router/index.ts'
-import {   Form, UserInfo, postUserLogout, getUserInfoBySession, updateUserInfoBySession, } from '../utils/API.ts'
+import {   Form, UserInfo, postUserLogout, getUserInfoBySession, updateUserInfoBySession, getUserArticlePreviews, } from '../utils/API.ts'
 import '../css/UserSpace.css'
 
 // Alert
@@ -24,6 +24,9 @@ const userInfoEdited = ref(new UserInfo('', '', '', '', '', ''))
 
 // Avatar url
 const avatar = ref(null)
+
+// User Preview
+const previews = ref([])
 
 // Logout button
 const onLogout = () => {
@@ -111,6 +114,12 @@ onMounted(() => {
             }
         }
     )
+
+    getUserArticlePreviews().then(
+        (res) => {
+            
+        }
+    )
 })
 
 </script>
@@ -143,7 +152,7 @@ onMounted(() => {
             </q-card-section >
             <!--History-->
             <q-card-section>
-                <h5>This is a test</h5>
+                <div v-for="preview of previews"></div>
             </q-card-section>
         </q-card>
 

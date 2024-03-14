@@ -29,7 +29,8 @@ const routes = [
     },
     {
         path: '/article/:title',
-        component: ArticleLayout
+        component: ArticleLayout,
+        props: true
     }
 ]
 

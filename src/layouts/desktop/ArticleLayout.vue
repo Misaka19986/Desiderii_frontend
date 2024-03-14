@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Topbar from '../../components/Topbar.vue'
-import Article from '../../views/Article.vue';
+import ArticlePreview from '../../views/ArticlePreview.vue';
 
 
 
@@ -8,7 +8,7 @@ import Article from '../../views/Article.vue';
 <template>
 
     <q-page>
-        <Article/>
+        <ArticlePreview/>
         <Topbar/>
     </q-page>
     
