@@ -308,7 +308,7 @@ export async function getArticleByTitle(title: string | null): Promise<Article> 
 
     let res = new Article()
 
-    await API.post('/article/preview' + title).then(
+    await API.post('/article/preview/' + title).then(
         (response) => {
             let data = response.data
 

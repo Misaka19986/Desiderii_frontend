@@ -6,7 +6,7 @@ import { postRefreshTokens } from './API.ts'
 import router from '../router/index.ts'
 
 const API = axios.create({
-  baseURL: "http://localhost:8090",
+  baseURL: "http://localhost:8090/api/",
   headers: {
     Accept:"application/json",
   },

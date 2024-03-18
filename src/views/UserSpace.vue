@@ -73,7 +73,7 @@ const onUploadFailed = () => {
 }
 
 const onUploadFinished = () => {
-    router.go(0)
+    setTimeout(() => {router.go(0)}, 500)
 }
 
 const submitEdition = () => {
@@ -239,7 +239,7 @@ onMounted(() => {
 
         <q-dialog v-model="upload">
             <q-uploader
-                url="http://localhost:8090/user/uploadUserAvatar"
+                url="http://localhost:8090/api/user/uploadUserAvatar"
                 label="上传头像 (限制10MB)"
                 method="POST"
                 max-file-size="10485760"
